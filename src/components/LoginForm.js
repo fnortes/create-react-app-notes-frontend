@@ -1,7 +1,8 @@
+import PropTypes from "prop-types";
 import React, { useState } from "react";
 import Togglable from "./Togglable";
 
-export default function LoginForm({ onLogin }) {
+const LoginForm = ({ onLogin }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -39,4 +40,10 @@ export default function LoginForm({ onLogin }) {
       </form>
     </Togglable>
   );
-}
+};
+
+LoginForm.propTypes = {
+  onLogin: PropTypes.func.isRequired,
+};
+
+export default LoginForm;
