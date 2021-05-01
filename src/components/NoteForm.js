@@ -1,26 +1,27 @@
-import React, { useRef, useState } from "react";
-import Togglable from "./Togglable";
+import PropTypes from 'prop-types'
+import React, { useRef, useState } from 'react'
+import Togglable from './Togglable'
 
-export default function NoteForm({ addNote, onLogout }) {
-  const [newNote, setNewNote] = useState("");
-  const togglableRef = useRef();
+const NoteForm = ({ addNote, onLogout }) => {
+  const [newNote, setNewNote] = useState('')
+  const togglableRef = useRef()
 
   const handleChange = (event) => {
-    setNewNote(event.target.value);
-  };
+    setNewNote(event.target.value)
+  }
 
   const handleSubmit = (event) => {
-    event.preventDefault();
+    event.preventDefault()
 
     const noteObject = {
       content: newNote,
-      important: Math.random() > 0.5,
-    };
+      important: Math.random() > 0.5
+    }
 
-    addNote(noteObject);
-    setNewNote("");
-    togglableRef.current.toggleVisibility();
-  };
+    addNote(noteObject)
+    setNewNote('')
+    togglableRef.current.toggleVisibility()
+  }
 
   return (
     <Togglable buttonLabel="New note" ref={togglableRef}>
@@ -37,5 +38,12 @@ export default function NoteForm({ addNote, onLogout }) {
         <button onClick={onLogout}>Logout</button>
       </div>
     </Togglable>
-  );
+  )
 }
+
+NoteForm.propTypes = {
+  addNote: PropTypes.func.isRequired,
+  onLogout: PropTypes.func.isRequired
+}
+
+export default NoteForm

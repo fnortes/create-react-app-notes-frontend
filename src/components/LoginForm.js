@@ -1,19 +1,19 @@
-import PropTypes from "prop-types";
-import React, { useState } from "react";
-import Togglable from "./Togglable";
+import PropTypes from 'prop-types'
+import React, { useState } from 'react'
+import Togglable from './Togglable'
 
 const LoginForm = ({ onLogin }) => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
 
   const handleSubmit = (event) => {
-    event.preventDefault();
+    event.preventDefault()
 
-    onLogin({ username, password });
+    onLogin({ username, password })
 
-    setUsername("");
-    setPassword("");
-  };
+    setUsername('')
+    setPassword('')
+  }
 
   return (
     <Togglable buttonLabel="Show login">
@@ -39,11 +39,11 @@ const LoginForm = ({ onLogin }) => {
         <button>Login</button>
       </form>
     </Togglable>
-  );
-};
+  )
+}
 
 LoginForm.propTypes = {
-  onLogin: PropTypes.func.isRequired,
-};
+  onLogin: PropTypes.func.isRequired
+}
 
-export default LoginForm;
+export default LoginForm

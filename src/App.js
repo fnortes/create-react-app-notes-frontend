@@ -1,85 +1,85 @@
-import React, { useEffect, useState } from "react";
-import LoginForm from "./components/LoginForm";
-import Note from "./components/Note";
-import NoteForm from "./components/NoteForm";
-import Notification from "./components/Notification";
-import loginService from "./services/login";
-import noteService from "./services/notes";
+import React, { useEffect, useState } from 'react'
+import LoginForm from './components/LoginForm'
+import Note from './components/Note'
+import NoteForm from './components/NoteForm'
+import Notification from './components/Notification'
+import loginService from './services/login'
+import noteService from './services/notes'
 
 const App = () => {
-  const [notes, setNotes] = useState([]);
-  const [showAll, setShowAll] = useState(true);
-  const [errorMessage, setErrorMessage] = useState(null);
+  const [notes, setNotes] = useState([])
+  const [showAll, setShowAll] = useState(true)
+  const [errorMessage, setErrorMessage] = useState(null)
 
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null)
 
   useEffect(() => {
     noteService.getAll().then((initialNotes) => {
-      setNotes(initialNotes);
-    });
-  }, []);
+      setNotes(initialNotes)
+    })
+  }, [])
 
   useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem("loggedNoteAppUser");
+    const loggedUserJSON = window.localStorage.getItem('loggedNoteAppUser')
     if (loggedUserJSON) {
-      const user = JSON.parse(loggedUserJSON);
-      setUser(user);
-      noteService.setToken(user.token);
+      const user = JSON.parse(loggedUserJSON)
+      setUser(user)
+      noteService.setToken(user.token)
     }
-  }, []);
+  }, [])
 
   const handleLogout = () => {
-    setUser(null);
-    noteService.setToken(null);
-    window.localStorage.removeItem("loggedNoteAppUser");
-  };
+    setUser(null)
+    noteService.setToken(null)
+    window.localStorage.removeItem('loggedNoteAppUser')
+  }
 
   const addNote = (noteObject) => {
     noteService.create(noteObject).then((returnedNote) => {
-      setNotes(notes.concat(returnedNote));
-    });
-  };
+      setNotes(notes.concat(returnedNote))
+    })
+  }
 
   const toggleImportanceOf = (id) => {
-    const note = notes.find((n) => n.id === id);
-    const changedNote = { ...note, important: !note.important };
+    const note = notes.find((n) => n.id === id)
+    const changedNote = { ...note, important: !note.important }
 
     noteService
       .update(id, changedNote)
       .then((returnedNote) => {
-        setNotes(notes.map((note) => (note.id !== id ? note : returnedNote)));
+        setNotes(notes.map((note) => (note.id !== id ? note : returnedNote)))
       })
-      .catch((error) => {
+      .catch(() => {
         setErrorMessage(
           `Note '${note.content}' was already removed from server`
-        );
+        )
         setTimeout(() => {
-          setErrorMessage(null);
-        }, 5000);
-      });
-  };
+          setErrorMessage(null)
+        }, 5000)
+      })
+  }
 
   const handleLogin = async ({ username, password }) => {
     try {
       const user = await loginService.login({
         username,
-        password,
-      });
+        password
+      })
 
-      window.localStorage.setItem("loggedNoteAppUser", JSON.stringify(user));
+      window.localStorage.setItem('loggedNoteAppUser', JSON.stringify(user))
 
-      noteService.setToken(user.token);
+      noteService.setToken(user.token)
 
-      setUser(user);
+      setUser(user)
     } catch (e) {
-      setErrorMessage("Wrong credentials");
+      setErrorMessage('Wrong credentials')
       setTimeout(() => {
-        setErrorMessage(null);
-      }, 5000);
+        setErrorMessage(null)
+      }, 5000)
     }
-  };
+  }
 
-  const notesToShow = showAll ? notes : notes.filter((note) => note.important);
+  const notesToShow = showAll ? notes : notes.filter((note) => note.important)
 
   return (
     <div>
@@ -94,7 +94,7 @@ const App = () => {
 
       <div>
         <button onClick={() => setShowAll(!showAll)}>
-          show {showAll ? "important" : "all"}
+          show {showAll ? 'important' : 'all'}
         </button>
       </div>
       <ul>
@@ -107,7 +107,7 @@ const App = () => {
         ))}
       </ul>
     </div>
-  );
-};
+  )
+}
 
-export default App;
+export default App
