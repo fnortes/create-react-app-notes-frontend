@@ -15,7 +15,7 @@ const NoteForm = ({ addNote, onLogout }) => {
 
     const noteObject = {
       content: newNote,
-      important: Math.random() > 0.5
+      important: false
     }
 
     addNote(noteObject)
@@ -29,6 +29,7 @@ const NoteForm = ({ addNote, onLogout }) => {
       <form onSubmit={handleSubmit}>
         <input
           placeholder="Write your note content"
+          name="newNote"
           value={newNote}
           onChange={handleChange}
         />

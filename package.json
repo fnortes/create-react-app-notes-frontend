@@ -20,6 +20,8 @@
     "format:fix": "prettier . --write",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "cypress:open": "cypress open",
+    "test:e2e": "cypress run",
     "eject": "react-scripts eject",
     "server": "json-server -p3001 --watch db.json"
   },
@@ -39,9 +41,11 @@
     ]
   },
   "devDependencies": {
+    "cypress": "7.2.0",
     "eslint": "7.25.0",
     "eslint-config-prettier": "8.3.0",
     "eslint-config-standard": "16.0.2",
+    "eslint-plugin-cypress": "2.11.2",
     "eslint-plugin-import": "2.22.1",
     "eslint-plugin-node": "11.1.0",
     "eslint-plugin-promise": "4.3.1",
